@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "sch_default",
+      "name": "فصول ملحقة بنايوس الثانوية المشتركة",
+      "directorate": "مديري التربية والتعليم بالشرقية",
+      "administration": "غـرب الزقازيق",
+      "active": true,
+      "createdAt": "2026-10-28T12:33:35.981Z",
+      "updatedAt": "2026-10-28T12:33:35.981Z"
+    }
+  ]
+}

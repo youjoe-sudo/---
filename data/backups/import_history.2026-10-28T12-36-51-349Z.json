@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "imp_mvs3mnh38eaf8d03",
+      "fileName": "تقرير قوائم الفصول (86).pdf",
+      "importedAt": "2026-10-28T12:36:50.974Z",
+      "classId": "cls_mvs3mnbq962a8892",
+      "classLabel": "1 / 2",
+      "added": 51,
+      "updated": 0,
+      "skipped": 0,
+      "needsReview": 4,
+      "conflicts": 0,
+      "conflictList": [],
+      "pages": 1,
+      "rows": 51,
+      "warnings": [
+        "4 سجلاً يحتاج مراجعة يدوية قبل التصدير",
+        "يوجد رموز غير معروفة في بعض الحروف — عُلّمت السجلات المتأثرة للمراجعة"
+      ]
+    },
+    {
+      "id": "imp_mvs3lch70283b74e",
+      "fileName": "تقرير قوائم الفصول (85).pdf",
+      "importedAt": "2026-10-28T12:35:50.242Z",
+      "classId": "cls_mvs3lcdb6748a641",
+      "classLabel": "1 / 1",
+      "added": 0,
+      "updated": 52,
+      "skipped": 0,
+      "needsReview": 2,
+      "conflicts": 0,
+      "conflictList": [],
+      "pages": 0,
+      "rows": 52,
+      "warnings": []
+    },
+    {
+      "id": "imp_mvs3lcg84cef80f3",
+      "fileName": "تقرير قوائم الفصول (85).pdf",
+      "importedAt": "2026-10-28T12:35:50.111Z",
+      "classId": "cls_mvs3lcdb6748a641",
+      "classLabel": "1 / 1",
+      "added": 52,
+      "updated": 0,
+      "skipped": 0,
+      "needsReview": 2,
+      "conflicts": 0,
+      "conflictList": [],
+      "pages": 0,
+      "rows": 52,
+      "warnings": []
+    }
+  ]
+}

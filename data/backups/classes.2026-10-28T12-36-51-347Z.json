@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "cls_mvs3lcdb6748a641",
+      "syncKey": "sch_default|1 / 1|ثانوي عام|الاول|1 / 1",
+      "schoolId": "sch_default",
+      "stage": "ثانوى عام",
+      "grade": "الأول",
+      "section": "1 / 1",
+      "name": "1 / 1",
+      "studentCount": 52,
+      "sourceFile": "تقرير قوائم الفصول (85).pdf",
+      "importedAt": "2026-10-28T12:35:50.242Z",
+      "createdAt": "2026-10-28T12:35:50.111Z",
+      "updatedAt": "2026-10-28T12:35:50.249Z"
+    },
+    {
+      "id": "cls_mvs3mnbq962a8892",
+      "syncKey": "sch_default|1 / 2|ثانوي عام|الاول|1 / 2",
+      "schoolId": "sch_default",
+      "stage": "ثانوى عام",
+      "grade": "الأول",
+      "section": "1 / 2",
+      "name": "1 / 2",
+      "studentCount": 51,
+      "sourceFile": "تقرير قوائم الفصول (86).pdf",
+      "importedAt": "2026-10-28T12:36:50.974Z",
+      "createdAt": "2026-10-28T12:36:50.967Z",
+      "updatedAt": "2026-10-28T12:36:50.967Z"
+    },
+    {
+      "id": "cls_mvs3mnm519334a4f",
+      "syncKey": "sch_default|1 / 3|ثانوي عام|الاول|1 / 3",
+      "schoolId": "sch_default",
+      "stage": "ثانوى عام",
+      "grade": "الأول",
+      "section": "1 / 3",
+      "name": "1 / 3",
+      "studentCount": 0,
+      "sourceFile": "تقرير قوائم الفصول (87).pdf",
+      "importedAt": "2026-10-28T12:36:51.341Z",
+      "createdAt": "2026-10-28T12:36:51.341Z",
+      "updatedAt": "2026-10-28T12:36:51.341Z"
+    }
+  ]
+}

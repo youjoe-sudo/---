@@ -1,0 +1,13 @@
+{
+  "directorate": "مديري التربية والتعليم بالشرقية",
+  "administration": "غـرب الزقازيق",
+  "schoolName": "فصول ملحقة بنايوس الثانوية المشتركة",
+  "siteUrl": "",
+  "headless": false,
+  "timeoutMs": 45000,
+  "manualFallback": true,
+  "exportDir": "",
+  "successIndicators": [],
+  "excelTemplateVerified": true,
+  "excelVerifiedAt": "2026-10-28T12:35:50.338Z"
+}

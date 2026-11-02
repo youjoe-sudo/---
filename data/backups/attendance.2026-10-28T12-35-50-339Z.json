@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "date": "2026-10-28",
+      "classId": "cls_mvs3lcdb6748a641",
+      "studentIds": [
+        "stu_mvs3lcdb84baa6b2",
+        "stu_mvs3lcdb143f53c1",
+        "stu_mvs3lcdbb89b774d"
+      ],
+      "createdAt": "2026-10-28T12:35:50.271Z",
+      "updatedAt": "2026-10-28T12:35:50.271Z"
+    }
+  ]
+}
