@@ -13,7 +13,7 @@ import {
   RefreshCw,
   ShieldAlert,
 } from 'lucide-react';
-import { apiGet, apiPost, copyText, formatDateTime, toErrorMessage, todayISO } from '../api';
+import { apiGet, apiGetResult, apiPost, apiPostResult, copyText, formatDateTime, toErrorMessage, todayISO } from '../api';
 import { Badge, StatusBanner } from '../components/Badge';
 import { Card, EmptyState, ErrorState, Loading, PageHeader } from '../components/States';
 import { useResource, type Resource } from '../hooks';
@@ -44,7 +44,8 @@ export function Automation({ meta }: { meta: Resource<MetaResponse> }) {
 
   useEffect(() => {
     let alive = true;
-    apiGet<AutomationResult>('/automation/status')
+    // نتيجة سابقة قد تحمل ok:false — نقرأها كما هي لا كخطأ
+    apiGetResult<AutomationResult>('/automation/status')
       .then((status) => {
         if (!alive) return;
         if (status && status.status && status.status !== 'idle') setResult(status);
@@ -76,7 +77,8 @@ export function Automation({ meta }: { meta: Resource<MetaResponse> }) {
     setRunning(true);
     setRunError(null);
     try {
-      const response = await apiPost<AutomationResult>('/automation/run', {
+      // نتيجة الأتمتة قد تحمل ok:false (فشل/حاجة لتدخل يدوي) — وهذا ليس خطأ نقل
+      const response = await apiPostResult<AutomationResult>('/automation/run', {
         date,
         classId,
         export: true,
@@ -217,6 +219,13 @@ export function Automation({ meta }: { meta: Resource<MetaResponse> }) {
               </p>
             </div>
           </StatusBanner>
+
+          {result.siteMessage && result.siteMessage.text ? (
+            <div className="site-message">
+              <p className="notice-title">رسالة موقع المديرية (‎#message‎) كما وردت</p>
+              <p className="site-message-text" dir="auto">{result.siteMessage.text}</p>
+            </div>
+          ) : null}
 
           <p className="notice-title">
             <CircleCheck size={15} aria-hidden="true" /> خطوات التنفيذ ({result.steps.length})

@@ -382,6 +382,59 @@ a {
   background: var(--primary-soft);
 }
 
+/* --- منطقة الخطر: تصفير البيانات --- */
+.btn-danger {
+  background: var(--danger);
+  color: #ffffff;
+  border-color: var(--danger);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #991b1b;
+  border-color: #991b1b;
+}
+
+.btn-danger-outline {
+  background: var(--surface);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-danger-outline:hover:not(:disabled) {
+  background: var(--danger-soft);
+}
+
+.danger-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.danger-zone > p {
+  margin: 0;
+  line-height: 1.8;
+}
+
+.danger-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--danger);
+  border-radius: 10px;
+  background: var(--danger-soft);
+}
+
+.danger-warn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--danger);
+  font-weight: 600;
+  line-height: 1.7;
+}
+
 .btn-sm {
   padding: 6px 11px;
   font-size: 13px;
@@ -742,6 +795,23 @@ a {
   font-weight: 700;
   font-size: 14px;
   margin-bottom: 6px;
+}
+
+.site-message {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-inline-start: 4px solid var(--primary);
+  border-radius: 10px;
+  background: var(--surface-2, #f8fafc);
+}
+
+.site-message-text {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .notice-warn {

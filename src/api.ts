@@ -52,6 +52,50 @@ export function apiPost<T>(path: string, body: unknown): Promise<T> {
   });
 }
 
+/**
+ * مثل apiGet لكنه لا يعتبر `ok:false` خطأً — لأن بعض النقاط (نتيجة الأتمتة)
+ * تُرجع `ok:false` كجزء من النتيجة التفصيلية التي يجب عرضها للمستخدم.
+ * أخطاء HTTP الحقيقية (4xx/5xx) ما زالت تُرفع.
+ */
+export async function apiGetResult<T>(path: string): Promise<T> {
+  return rawRequest<T>(path);
+}
+
+/** نظير apiGetResult: لا يعتبر `ok:false` خطأً. */
+export async function apiPostResult<T>(path: string, body: unknown): Promise<T> {
+  return rawRequest<T>(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+}
+
+async function rawRequest<T>(path: string, init?: RequestInit): Promise<T> {
+  let res: Response;
+  try {
+    res = await fetch(API_BASE + path, init);
+  } catch {
+    throw new ApiError('تعذّر الاتصال بالخادم المحلي. تأكد من تشغيل الخادم ثم أعد المحاولة.');
+  }
+
+  const payload: unknown = await res.json().catch(() => null);
+
+  if (!res.ok) {
+    const obj = payload as { error?: string } | null;
+    const message =
+      obj && typeof obj.error === 'string' && obj.error.trim().length > 0
+        ? obj.error
+        : `فشل الطلب (رمز الحالة ${res.status}).`;
+    throw new ApiError(message);
+  }
+
+  if (payload === null) {
+    throw new ApiError(`استجابة غير متوقعة من الخادم (رمز الحالة ${res.status}).`);
+  }
+
+  return payload as T;
+}
+
 /** يقرأ الملف ويُرجع محتواه base64 بدون البادئة data:*;base64, */
 export function fileToBase64(file: File): Promise<string> {
   return new Promise<string>((resolve, reject) => {

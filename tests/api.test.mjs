@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
 import { startServer, api } from './helpers.mjs';
 
 test('مسار العمل الكامل عبر الـ API (بيانات اصطناعية فقط)', async (t) => {
@@ -243,4 +245,50 @@ test('الواجهة المبنية تُقدَّم على الجذر', async (t)
   assert.match(html, /<div id="root">/);
   assert.match(html, /dir="rtl"/);
   assert.match(html, /lang="ar"/);
+});
+
+test('تصفير البيانات يحذف الطلاب والأصناف ويحفظ الإعدادات والمدرسة', async (t) => {
+  const srv = await startServer();
+  t.after(() => srv.close());
+
+  // جهّز بيانات: صنف + طالبان
+  const cls = await api(srv.base, 'POST', '/api/classes', {
+    stage: 'ثانوى عام', grade: 'الأول', section: '1 / 1', name: '1 / 1',
+  });
+  const classId = cls.json.class.id;
+  await api(srv.base, 'POST', '/api/students', { classId, studentCode: '472776652', fullName: 'طالب تجريبي أول' });
+  await api(srv.base, 'POST', '/api/students', { classId, studentCode: '476267959', fullName: 'طالب تجريبي ثانٍ' });
+  await api(srv.base, 'POST', '/api/settings', { siteUrl: 'https://example.edu.eg' });
+
+  const before = await api(srv.base, 'GET', '/api/health');
+  assert.equal(before.json.stats.students, 2);
+
+  // تأكيد ناقص → مرفوض
+  const guarded = await api(srv.base, 'POST', '/api/admin/reset', {});
+  assert.equal(guarded.status, 400, 'لا تصفير بلا تأكيد صريح');
+  assert.match(guarded.json.error, /تأكيد/);
+
+  const stillThere = await api(srv.base, 'GET', '/api/health');
+  assert.equal(stillThere.json.stats.students, 2, 'الرفض لا يحذف شيئاً');
+
+  // تصفير فعلي
+  const done = await api(srv.base, 'POST', '/api/admin/reset', { confirm: 'RESET' });
+  assert.equal(done.status, 200);
+  assert.equal(done.json.removed.students, 2);
+  assert.equal(done.json.removed.classes, 1);
+
+  const after = await api(srv.base, 'GET', '/api/health');
+  assert.equal(after.json.stats.students, 0);
+  assert.equal(after.json.stats.classes, 0);
+  assert.equal(after.json.stats.imports, 0);
+
+  // الإعدادات والمدرسة محفوظة
+  const settings = await api(srv.base, 'GET', '/api/settings');
+  assert.equal(settings.json.settings.siteUrl, 'https://example.edu.eg');
+  const meta = await api(srv.base, 'GET', '/api/meta');
+  assert.ok(meta.json.schools.length >= 1, 'اسم المدرسة لا يُحذف');
+
+  // نسخة احتياطية أُنشئت قبل الحذف
+  const backups = fs.readdirSync(path.join(srv.dataDir, 'backups'));
+  assert.ok(backups.some((b) => b.startsWith('students.')), 'يجب إنشاء نسخة احتياطية للطلاب');
 });

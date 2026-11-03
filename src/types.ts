@@ -312,6 +312,8 @@ export interface AutomationResult {
   finishedAt?: string;
   durationMs?: number;
   excelPath?: string;
+  /** نص الرسالة التي كتبها موقع المديرية في #message كما هو */
+  siteMessage?: { text: string; cls?: string; visible?: boolean } | null;
 }
 
 /* ---------- /api/logs ---------- */

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * استخراج كشوف الفصول من ملفات PDF الصادرة عن Microsoft SQL Reporting Services.
  *
  * السبب الجذري للتعقيد:
@@ -135,7 +135,7 @@ function inflateContents(obj) {
   try { return zlib.inflateSync(d); } catch { return d; }
 }
 
-function normalizeBase(name) {
+export function normalizeBase(name) {
   return String(name).replace(/^\//, '').replace(/#([0-9A-Fa-f]{2})/g, (_, h) => String.fromCharCode(parseInt(h, 16)));
 }
 
@@ -143,7 +143,7 @@ function normalizeBase(name) {
  * @returns {Map<string, {rev:Map<number,string>, glyphCount:number, ttf:Buffer}>}
  *          key = اسم الخط الأساسي موحّد
  */
-async function buildFontMaps(pdfBytes) {
+export async function buildFontMaps(pdfBytes) {
   const doc = await PDFDocument.load(pdfBytes, { updateMetadata: false });
   const ctx = doc.context;
   const out = new Map();

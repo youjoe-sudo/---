@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { CircleCheck, Copy, HardDrive, Info, RefreshCw, Save, Server, X } from 'lucide-react';
+import { AlertTriangle, CircleCheck, Copy, HardDrive, Info, RefreshCw, Save, Server, Trash2, X } from 'lucide-react';
 import { apiGet, apiPost, copyText, formatDateTime, toErrorMessage } from '../api';
 import { StatusBanner } from '../components/Badge';
 import { Card, ErrorState, Loading, PageHeader } from '../components/States';
@@ -26,6 +26,12 @@ export function SettingsPage() {
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // تصفير البيانات
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [resetError, setResetError] = useState<string | null>(null);
+  const [resetDone, setResetDone] = useState<string | null>(null);
 
   useEffect(() => {
     if (settings.data) {
@@ -59,6 +65,29 @@ export function SettingsPage() {
       setError(toErrorMessage(err));
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function resetDatabase() {
+    setResetting(true);
+    setResetError(null);
+    setResetDone(null);
+    try {
+      const r = await apiPost<{
+        ok: boolean;
+        removed: { students: number; classes: number; attendance: number; imports: number };
+      }>('/admin/reset', { confirm: 'RESET' });
+      const x = r.removed;
+      setResetDone(
+        `تم التصفير: حُذف ${x.students} طالباً و${x.classes} صنفاً و${x.attendance} يوم غياب و${x.imports} سجل استيراد. الإعدادات والمدرسة محفوظة.`,
+      );
+      setResetOpen(false);
+      settings.reload();
+      health.reload();
+    } catch (err) {
+      setResetError(toErrorMessage(err));
+    } finally {
+      setResetting(false);
     }
   }
 
@@ -202,6 +231,68 @@ export function SettingsPage() {
           </Card>
         </form>
       )}
+
+      <Card title="تصفير البيانات" icon={<Trash2 size={17} aria-hidden="true" />}>
+        <div className="danger-zone">
+          <p>
+            يحذف <strong>كل الطلاب</strong> و<strong>كل الأصناف</strong> و<strong>سجلات الغياب</strong> و
+            <strong>سجل الاستيراد</strong> من قاعدة البيانات المحلية، لتبدأ من جديد بكشوف نظيفة.
+          </p>
+          <p className="muted small">
+            لا يُحذف: إعدادات الموقع والمتصفح، اسم المدرسة، خريطة رموز الخط، وسجل الأحداث.
+            تُنشأ نسخة احتياطية تلقائياً لكل ملف قبل الحذف في <span className="mono" dir="ltr">data/backups</span>.
+          </p>
+
+          {resetError ? (
+            <StatusBanner tone="danger" title="تعذّر تصفير البيانات">
+              {resetError}
+            </StatusBanner>
+          ) : null}
+          {resetDone ? (
+            <p className="inline-ok" role="status">
+              <CircleCheck size={15} aria-hidden="true" /> {resetDone}
+            </p>
+          ) : null}
+
+          {resetOpen ? (
+            <div className="danger-confirm">
+              <p className="danger-warn">
+                <AlertTriangle size={16} aria-hidden="true" />
+                هل أنت متأكد؟ سيُحذف كل الطلاب والأصناف والغياب نهائياً من قاعدة البيانات الحالية.
+              </p>
+              <div className="actions-row">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => void resetDatabase()}
+                  disabled={resetting}
+                >
+                  {resetting ? (
+                    <RefreshCw className="spin" size={16} aria-hidden="true" />
+                  ) : (
+                    <Trash2 size={16} aria-hidden="true" />
+                  )}
+                  {resetting ? 'جارٍ الحذف…' : 'نعم، احذف كل البيانات'}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={() => setResetOpen(false)}
+                  disabled={resetting}
+                >
+                  <X size={16} aria-hidden="true" /> إلغاء
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="actions-row">
+              <button type="button" className="btn btn-danger-outline" onClick={() => setResetOpen(true)}>
+                <Trash2 size={16} aria-hidden="true" /> تصفير قاعدة البيانات والطلاب
+              </button>
+            </div>
+          )}
+        </div>
+      </Card>
 
       <Card title="معلومات النظام" icon={<Server size={17} aria-hidden="true" />}>
         {health.loading ? (

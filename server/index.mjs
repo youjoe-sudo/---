@@ -189,6 +189,43 @@ app.get('/api/logs', async (req, res) => {
   res.json({ ok: true, logs: await readLogs(limit) });
 });
 
+/* ------------------------------------------------------------------ */
+/* تصفير البيانات: يحذف الطلاب والأصناف والغياب وسجل الاستيراد فقط.    */
+/* تُحفظ الإعدادات والمدرسة وخريطة رموز الخط. كل ملف يُنسخ احتياطياً    */
+/* تلقائياً قبل الكتابة (طبقة db) — فلا فقدان نهائي بلا رجعة.          */
+/* ------------------------------------------------------------------ */
+app.post('/api/admin/reset', async (req, res) => {
+  const { confirm } = req.body || {};
+  if (confirm !== 'RESET') {
+    return bad(res, 400, 'التصفير يتطلب تأكيداً صريحاً (confirm = "RESET").');
+  }
+  try {
+    const [students, classes, attendance, imports] = await Promise.all([
+      loadStudents(), loadClasses(), loadAttendance(), loadImportHistory(),
+    ]);
+    const removed = {
+      students: (students.items || []).length,
+      classes: (classes.items || []).length,
+      attendance: (attendance.items || []).length,
+      imports: (imports.items || []).length,
+    };
+
+    await saveStudents({ version: 1, items: [] });
+    await saveClasses({ version: 1, items: [] });
+    await saveAttendance({ version: 1, items: [] });
+    await saveImportHistory({ version: 1, items: [] });
+
+    await log('warn',
+      `تصفير البيانات: حُذف ${removed.students} طالباً و${removed.classes} صنفاً و${removed.attendance} يوم غياب و${removed.imports} سجل استيراد (نسخ احتياطية محفوظة في data/backups).`);
+
+    res.json({ ok: true, removed, kept: ['settings.json', 'schools.json', 'glyph_overrides.json', 'logs.json'] });
+  } catch (e) {
+    await log('error', `فشل تصفير البيانات: ${e.message}`);
+    return bad(res, 500, `تعذّر تصفير البيانات: ${e.message}`);
+  }
+});
+
+
 /* ================================================================= */
 /* 2) الطلاب                                                         */
 /* ================================================================= */

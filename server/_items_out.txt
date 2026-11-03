@@ -1,0 +1,71 @@
+CELL: [trace] raw="ﷲﺪﺒ ﻢﻴﻫاﺮﺑا مﺎﺼ ﺪﻤﺣا ﻢﺻﺎ" parts=["ﷲﺪﺒ ﻢﻴﻫاﺮﺑا مﺎﺼ ﺪﻤﺣا ﻢﺻﺎ"] text="اصم احمد صام ابراهيم بدالله"
+
+=== y=595 ===
+  x=475.3 w=54 base=Courier-Bold
+    str="476345097"
+    cps=U+0034 U+0037 U+0036 U+0033 U+0034 U+0035 U+0030 U+0039 U+0037
+  x=190.2 w=54 base=Courier-Bold
+    str="471988197"
+    cps=U+0034 U+0037 U+0031 U+0039 U+0038 U+0038 U+0031 U+0039 U+0037
+
+=== y=594 ===
+  x=545.7 w=6 base=Courier-Bold
+    str="4"
+    cps=U+0034
+  x=262.7 w=12 base=Courier-Bold
+    str="34"
+    cps=U+0033 U+0034
+
+=== y=593 ===
+  x=325.1 w=0 base=ABCDEE+Segoe UI
+    str="ﻰﻣ"
+    cps=U+FEF0 U+FEE3
+  x=325.1 w=89.7 base=ABCDEE+Segoe UI
+    str="ﺎﺸﻟا ﺪﻤﺣا ﺪﻤﺤﻣ ﺪﻤﺣا وﺮﻤ ﺪﻤﺣا"
+    cps=U+FE8E U+FEB8 U+FEDF U+0627 U+0020 U+FEAA U+FEE4 U+FEA3 U+0627 U+0020 U+FEAA U+FEE4 U+FEA4 U+FEE3 U+0020 U+FEAA U+FEE4 U+FEA3 U+0627 U+0020 U+0648 U+FEAE U+FEE4 U+0020 U+FEAA U+FEE4 U+FEA3 U+0627
+  x=43.7 w=86.1 base=ABCDEE+Segoe UI
+    str="ﺰﻳﺰﻌﻟاﺪﺒ ﺲﻧﻮﻳ ﺪﻤﺤﻣ ﺪﻤﺣا ﻒﻳرش"
+    cps=U+FEB0 U+FEF3 U+FEB0 U+FECC U+FEDF U+0627 U+FEAA U+FE92 U+0020 U+FEB2 U+FEE7 U+FEEE U+FEF3 U+0020 U+FEAA U+FEE4 U+FEA4 U+FEE3 U+0020 U+FEAA U+FEE4 U+FEA3 U+0627 U+0020 U+FED2 U+FEF3 U+0631 U+0634
+
+=== y=577 ===
+  x=475.3 w=54 base=Courier-Bold
+    str="469121751"
+    cps=U+0034 U+0036 U+0039 U+0031 U+0032 U+0031 U+0037 U+0035 U+0031
+  x=190.2 w=54 base=Courier-Bold
+    str="474712121"
+    cps=U+0034 U+0037 U+0034 U+0037 U+0031 U+0032 U+0031 U+0032 U+0031
+
+=== y=576 ===
+  x=545.7 w=6 base=Courier-Bold
+    str="5"
+    cps=U+0035
+  x=262.7 w=12 base=Courier-Bold
+    str="35"
+    cps=U+0033 U+0035
+
+=== y=575 ===
+  x=318.4 w=0 base=ABCDEE+Segoe UI
+    str="ﻪ"
+    cps=U+FEEA
+  x=318.4 w=109.7 base=ABCDEE+Segoe UI
+    str="ﻴﻄ ىدﺎﻬﻟا حالﺻ ىدﺎﻬﻟا ﺪﻤﺤﻣ ﺪﻤﺣا"
+    cps=U+FEF4 U+FEC4 U+0020 U+0649 U+062F U+FE8E U+FEEC U+FEDF U+0627 U+0020 U+062D U+0627 U+0644 U+FEBB U+0020 U+0649 U+062F U+FE8E U+FEEC U+FEDF U+0627 U+0020 U+FEAA U+FEE4 U+FEA4 U+FEE3 U+0020 U+FEAA U+FEE4 U+FEA3 U+0627
+  x=51.3 w=86.1 base=ABCDEE+Segoe UI
+    str="ﷲﺪﺒ ﻢﻴﻫاﺮﺑا مﺎﺼ ﺪﻤﺣا ﻢﺻﺎ"
+    cps=U+FDF2 U+FEAA U+FE92 U+0020 U+FEE2 U+FEF4 U+FEEB U+0627 U+FEAE U+FE91 U+0627 U+0020 U+0645 U+FE8E U+FEBC U+0020 U+FEAA U+FEE4 U+FEA3 U+0627 U+0020 U+FEE2 U+FEBB U+FE8E
+
+=== y=559 ===
+  x=475.3 w=54 base=Courier-Bold
+    str="468773968"
+    cps=U+0034 U+0036 U+0038 U+0037 U+0037 U+0033 U+0039 U+0036 U+0038
+  x=190.2 w=54 base=Courier-Bold
+    str="469103997"
+    cps=U+0034 U+0036 U+0039 U+0031 U+0030 U+0033 U+0039 U+0039 U+0037
+
+=== y=558 ===
+  x=545.7 w=6 base=Courier-Bold
+    str="6"
+    cps=U+0036
+  x=262.7 w=12 base=Courier-Bold
+    str="36"
+    cps=U+0033 U+0036
